@@ -8,12 +8,14 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
 const path = require('path');
+
 const {
   allowInsecurePrototypeAccess,
 } = require('@handlebars/allow-prototype-access');
 
 // Load User Model
 require('./src/models/User');
+require('./src/models/story');
 
 // Passport Config
 require('./src/configs/passport')(passport);
@@ -24,6 +26,9 @@ mongoose
   .catch((error) => console.log(error));
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Handlebars Middleware
 app.engine(
