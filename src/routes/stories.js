@@ -6,8 +6,11 @@ const mongoose = require('mongoose');
 const Story = mongoose.model('stories');
 
 // Stories Page
-router.get('/', (req, res) => {
-  res.render('stories/index');
+router.get('/', async (req, res) => {
+  const stories = await Story.find({}).populate('user');
+  res.render('stories/index', {
+    stories,
+  });
 });
 
 // Add Story Form
