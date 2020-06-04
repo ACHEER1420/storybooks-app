@@ -8,6 +8,8 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
 const path = require('path');
+// Handlebars Helpers
+const { truncate, stripTags } = require('./src/helpers/handlebarsHelper');
 
 const {
   allowInsecurePrototypeAccess,
@@ -35,6 +37,10 @@ app.engine(
   'handlebars',
   exphbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
+    helpers: {
+      truncate,
+      stripTags,
+    },
   })
 );
 app.set('view engine', 'handlebars');
@@ -44,7 +50,6 @@ const authRoutes = require('./src/routes/auth');
 const indexRoutes = require('./src/routes/index');
 const storyRoutes = require('./src/routes/stories');
 
-//
 app.use(cookieParser());
 app.use(
   session({
