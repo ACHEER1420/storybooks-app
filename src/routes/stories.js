@@ -71,4 +71,10 @@ router.put('/:id', async (req, res) => {
   });
 });
 
+// Handle Delete Story
+router.delete('/:id', async (req, res) => {
+  const response = await Story.deleteOne({ _id: req.params.id });
+  if (response) res.redirect('/dashboard');
+});
+
 module.exports = router;

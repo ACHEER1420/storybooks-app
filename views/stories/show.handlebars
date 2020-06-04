@@ -7,6 +7,13 @@
         {{{story.body}}}
       </div>
     </div>
+    {{#if story.allowComments}}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Comments</span>
+      </div>
+    </div>
+    {{/if}}
   </div>
   <div class="col s12 m4">
     <div class="card card-align">
@@ -16,7 +23,8 @@
         <img src="{{story.user.image}}" alt="" class="circle responsive-img">
       </div>
       <div class="card-action">
-        <a href="/stories/user/{{story.user.id}}">More From {{story.user.firstName}}</a>
+        <a href="/stories/user/{{story.user.id}}">More From
+          {{story.user.firstName}}</a>
       </div>
     </div>
   </div>
