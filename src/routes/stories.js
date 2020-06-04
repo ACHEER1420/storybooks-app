@@ -31,11 +31,15 @@ router.get('/show/:id', (req, res) => {
     });
 });
 
-router.get('/edit/:id', routeGuard, (req, res) => {
-  res.render('stories/edit');
+// Edit Story Form Page
+router.get('/edit/:id', routeGuard, async (req, res) => {
+  const story = await Story.findOne({ _id: req.params.id });
+  res.render('stories/edit', {
+    story,
+  });
 });
 
-// Handle add Story
+// Handle Add Story
 router.post('/add', routeGuard, (req, res) => {
   const allowComments = !!req.body.allowComments;
   const newStory = {
@@ -49,5 +53,7 @@ router.post('/add', routeGuard, (req, res) => {
     res.redirect(`/stories/show/${story._id}`);
   });
 });
+
+// Handle Edit Story
 
 module.exports = router;

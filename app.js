@@ -13,6 +13,7 @@ const {
   truncate,
   stripTags,
   formatDate,
+  select
 } = require('./src/helpers/handlebarsHelper');
 
 const {
@@ -45,6 +46,7 @@ app.engine(
       truncate,
       stripTags,
       formatDate,
+      select
     },
   })
 );
