@@ -8,12 +8,13 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
 const path = require('path');
+const methodOverride = require('method-override');
 // Handlebars Helpers
 const {
   truncate,
   stripTags,
   formatDate,
-  select
+  select,
 } = require('./src/helpers/handlebarsHelper');
 
 const {
@@ -27,6 +28,7 @@ require('./src/models/story');
 // Passport Config
 require('./src/configs/passport')(passport);
 
+// Connect to DB
 mongoose
   .connect(process.env.db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected'))
@@ -34,8 +36,12 @@ mongoose
 
 const app = express();
 
+// Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Method Override Middleware
+app.use(methodOverride('_method'));
 
 // Handlebars Middleware
 app.engine(
@@ -46,7 +52,7 @@ app.engine(
       truncate,
       stripTags,
       formatDate,
-      select
+      select,
     },
   })
 );

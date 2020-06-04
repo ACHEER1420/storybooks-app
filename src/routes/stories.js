@@ -55,5 +55,20 @@ router.post('/add', routeGuard, (req, res) => {
 });
 
 // Handle Edit Story
+router.put('/:id', async (req, res) => {
+  const story = await Story.findOne({
+    _id: req.params.id,
+  });
+
+  const allowComments = !!req.body.allowComments;
+  story.title = req.body.title;
+  story.body = req.body.body;
+  story.status = req.body.status;
+  story.allowComments = allowComments;
+
+  story.save().then(() => {
+    res.redirect('/dashboard');
+  });
+});
 
 module.exports = router;
