@@ -11,3 +11,15 @@ main {
 footer {
   margin-top: 20px;
 }
+
+.story-text {
+  min-height: 120px;
+}
+
+.dash-status {
+  text-transform: capitalize;
+}
+
+#delete-form {
+  display: inline;
+}

@@ -9,7 +9,11 @@ const exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
 const path = require('path');
 // Handlebars Helpers
-const { truncate, stripTags } = require('./src/helpers/handlebarsHelper');
+const {
+  truncate,
+  stripTags,
+  formatDate,
+} = require('./src/helpers/handlebarsHelper');
 
 const {
   allowInsecurePrototypeAccess,
@@ -40,6 +44,7 @@ app.engine(
     helpers: {
       truncate,
       stripTags,
+      formatDate,
     },
   })
 );

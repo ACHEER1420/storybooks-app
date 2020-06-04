@@ -13,9 +13,22 @@ router.get('/', async (req, res) => {
   });
 });
 
-// Add Story Form
+// Add Story Form Page
 router.get('/add', routeGuard, (req, res) => {
   res.render('stories/add');
+});
+
+// Show single story page
+router.get('/show/:id', (req, res) => {
+  Story.findOne({
+    _id: req.params.id,
+  })
+    .populate('user')
+    .then((story) => {
+      res.render('stories/show', {
+        story,
+      });
+    });
 });
 
 router.get('/edit/:id', routeGuard, (req, res) => {
