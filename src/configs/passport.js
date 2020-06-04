@@ -15,10 +15,10 @@ module.exports = function (passport) {
       },
       (accessToken, refreshToken, profile, done) => {
         // console.log(accessToken);
-        console.log(profile);
+        // console.log(profile);
 
         const image = profile.photos[0].value;
-        console.log(image);
+        // console.log(image);
 
         const newUSer = {
           googleID: profile.id,

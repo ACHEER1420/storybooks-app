@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
+const path = require('path');
 const {
   allowInsecurePrototypeAccess,
 } = require('@handlebars/allow-prototype-access');
@@ -35,7 +36,8 @@ app.set('view engine', 'handlebars');
 
 // Load Routes
 const authRoutes = require('./src/routes/auth');
-const indexRoute = require('./src/routes/index');
+const indexRoutes = require('./src/routes/index');
+const storyRoutes = require('./src/routes/stories');
 
 //
 app.use(cookieParser());
@@ -57,9 +59,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// Set static folder
+app.use(express.static(path.join(__dirname, 'src/public')));
+
 // Use Routes
 app.use('/auth', authRoutes);
-app.use('', indexRoute);
+app.use('', indexRoutes);
+app.use('/stories', storyRoutes);
 
 const _PORT = process.env.PORT || 5000;
 
