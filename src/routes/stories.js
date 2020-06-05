@@ -26,10 +26,44 @@ router.get('/show/:id', (req, res) => {
     .populate('user')
     .populate('comments.commentUser')
     .then((story) => {
-      res.render('stories/show', {
-        story,
-      });
+      switch(true){
+        case !req.user:
+          res.redirect('/stories');
+          break;
+        case (story.user.id !== req.user.id):
+          res.redirect('/stories');
+          break;
+        default:
+          res.render('stories/show', {
+            story,
+          });
+      }
     });
+});
+
+// List all public stories from one user page
+router.get('/user/:id', async (req, res) => {
+  const stories = await Story.find({
+    user: req.params.id,
+    status: 'public',
+  }).populate('user');
+  if (stories) {
+    res.render('stories/index', {
+      stories,
+    });
+  }
+});
+
+// List stories of current User page
+router.get('/my-stories', routeGuard, async (req, res) => {
+  const stories = await Story.find({
+    user: req.user.id,
+  }).populate('user');
+  if (stories) {
+    res.render('stories/index', {
+      stories,
+    });
+  }
 });
 
 // Edit Story Form Page

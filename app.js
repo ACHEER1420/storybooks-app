@@ -92,6 +92,10 @@ app.use('/auth', authRoutes);
 app.use('', indexRoutes);
 app.use('/stories', storyRoutes);
 
+app.get('*', function (req, res) {
+  res.status(404).redirect('/stories');
+});
+
 const _PORT = process.env.PORT || 5000;
 
 app.listen(_PORT, () => {
