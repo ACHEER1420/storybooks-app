@@ -24,6 +24,7 @@ router.get('/show/:id', (req, res) => {
     _id: req.params.id,
   })
     .populate('user')
+    .populate('comments.commentUser')
     .then((story) => {
       res.render('stories/show', {
         story,
@@ -84,8 +85,8 @@ router.post('/comment/:id', async (req, res) => {
   });
   if (story) {
     const newComment = {
-      commentBody: req.body.commentBody,
-      commentUser: req.user.id,
+      commentsBody: req.body.commentsBody,
+      commentUser: req.user._id,
     };
     // Add to comments array
     story.comments.unshift(newComment);
