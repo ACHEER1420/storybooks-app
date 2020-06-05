@@ -28,4 +28,15 @@ module.exports = {
         ' selected="selected"$&'
       );
   },
+  editIcon: function (storyUser, currentUser, storyId, floating = true) {
+    if (storyUser === currentUser) {
+      if (floating) {
+        return `<a href="/stories/edit/${storyId}" class="btn-floating halfway-fab red"><i class="fas fa-pencil-alt"></i></a>`;
+      } else {
+        return `<a href="/stories/edit/${storyId}"><i class="fas fa-pencil-alt"></i></a>`;
+      }
+    } else {
+      return;
+    }
+  },
 };

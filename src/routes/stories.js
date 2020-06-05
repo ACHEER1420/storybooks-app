@@ -7,7 +7,7 @@ const Story = mongoose.model('stories');
 
 // Stories Page
 router.get('/', async (req, res) => {
-  const stories = await Story.find({}).populate('user');
+  const stories = await Story.find({}).populate('user').sort({ date: 'desc' });
   res.render('stories/index', {
     stories,
   });
@@ -34,10 +34,14 @@ router.get('/show/:id', (req, res) => {
 
 // Edit Story Form Page
 router.get('/edit/:id', routeGuard, async (req, res) => {
-  const story = await Story.findOne({ _id: req.params.id });
-  res.render('stories/edit', {
-    story,
-  });
+  const story = await Story.findOne({ _id: req.params.id, user: req.user._id });
+  if (!story) {
+    res.redirect('/stories');
+  } else {
+    res.render('stories/edit', {
+      story,
+    });
+  }
 });
 
 // Handle Add Story

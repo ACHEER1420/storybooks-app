@@ -15,6 +15,7 @@ const {
   stripTags,
   formatDate,
   select,
+  editIcon,
 } = require('./src/helpers/handlebarsHelper');
 
 const {
@@ -53,6 +54,7 @@ app.engine(
       stripTags,
       formatDate,
       select,
+      editIcon,
     },
   })
 );

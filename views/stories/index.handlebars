@@ -4,9 +4,9 @@
   <div class="col s12 m4">
     <div class="card">
       <div class="card-image">
-        <a href="/stories/{{_id}}" class="btn-floating halfway-fab red">
-          <i class="fas fa-pencil-alt"></i>
-        </a>
+        {{#if user}}
+        {{{editIcon user.id ../user.id id}}}
+        {{/if}}
       </div>
       <div class="card-content center-align">
         <h5>{{title}}</h5>
