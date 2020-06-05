@@ -77,4 +77,22 @@ router.delete('/:id', async (req, res) => {
   if (response) res.redirect('/dashboard');
 });
 
+// Handle Add comment
+router.post('/comment/:id', async (req, res) => {
+  const story = await Story.findOne({
+    _id: req.params.id,
+  });
+  if (story) {
+    const newComment = {
+      commentBody: req.body.commentBody,
+      commentUser: req.user.id,
+    };
+    // Add to comments array
+    story.comments.unshift(newComment);
+    story.save().then((story) => {
+      res.redirect(`/stories/show/${story._id}`);
+    });
+  }
+});
+
 module.exports = router;

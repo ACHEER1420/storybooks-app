@@ -11,6 +11,18 @@
     <div class="card">
       <div class="card-content">
         <span class="card-title">Comments</span>
+        {{#if user}}
+        <form method="POST" action="/stories/comment/{{story._id}}">
+          <div class="input-field">
+            <textarea name="" id="comment-textarea"
+              class="materialize-textarea"></textarea>
+            <label for="comment-textarea"></label>
+          </div>
+          <input type="submit" value="submit" class="btn">
+        </form>
+        {{else}}
+        <p>Please <a href="/auth/google">log in</a> to leave a comment</p>
+        {{/if}}
       </div>
     </div>
     {{/if}}
